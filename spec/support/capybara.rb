@@ -18,10 +18,6 @@ Capybara.register_driver :chrome do |app|
   )
 end
 
-Capybara::Screenshot.register_driver :chrome do |driver, path|
-  driver.save_screenshot(path)
-end
-
 Capybara.default_driver = :chrome
 Capybara.javascript_driver = :chrome
 
