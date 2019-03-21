@@ -8,7 +8,7 @@ class Word < ApplicationRecord
   has_many :second_associations, through: :second_word_associations,
     source: :first_word
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
 
   def associations
     (first_associations + second_associations).flatten.uniq

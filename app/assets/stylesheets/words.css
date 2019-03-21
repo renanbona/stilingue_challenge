@@ -1,0 +1,27 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.app {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+}
+
+.title {
+  align-self: center;
+  margin: 30px;
+  font-size: 40px;
+}
+
+.search-form {
+  align-self: center;
+}
+
+.words-table {
+  height: 30vh;
+  margin: 30px;
+  font-size: 30px;
+}
