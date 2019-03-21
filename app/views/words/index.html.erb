@@ -1,0 +1,32 @@
+<div class="app">
+  <div class="title">
+    <h1>Words</h1>
+  </div>
+
+  <div class="search-form">
+    <%= form_tag(words_path, method: :get, class: 'search-form') do %>
+      <%= text_field_tag :term, params[:term] %>
+      <%= submit_tag 'Search', name: nil %>
+    <% end %>
+  </div>
+
+  <div class="words-table">
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <% @words.each do |word| %>
+            <div class='word'>
+              <strong> <%= word.name %> </strong>
+            </div>
+          <% end %>
+        </tr>       
+      </tbody>
+    </table>
+  </div>
+</div>
