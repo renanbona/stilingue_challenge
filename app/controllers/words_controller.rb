@@ -4,8 +4,10 @@ class WordsController < ApplicationController
   def index 
     @words = if params[:term]
       Word.where('name LIKE ?', "%#{params[:term]}%")
+      .order(:name)
+      .page params[:page]
     else
-      @words = Word.all
+      @words = Word.order(:name).page params[:page]
     end
   end
 

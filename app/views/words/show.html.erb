@@ -1,1 +1,7 @@
 <%= @word.name %>
+
+<h3>Related Words</h3>
+
+<% @word.associations.each do |word| %>
+  <p><%= word.name %></p>
+<% end %>
