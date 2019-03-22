@@ -13,4 +13,8 @@ class Word < ApplicationRecord
   def associations
     (first_associations + second_associations).flatten.uniq
   end
+
+  def to_param
+    name
+  end
 end

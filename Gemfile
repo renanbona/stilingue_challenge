@@ -17,6 +17,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'webpacker'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'mini_racer', platforms: :ruby
+gem 'kaminari'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
@@ -45,6 +46,7 @@ group :development, :test do
   gem "pry-rails"
   gem "rspec-rails"
   gem 'ffaker'
+  gem 'pry-nav'
 end
 
 group :development do
