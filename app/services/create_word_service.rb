@@ -1,39 +1,40 @@
 class CreateWordService
-  def initialize(params = {})
-    @name = params.fetch(:name)
+  def initialize(name, levels)
+    @name = name
+    @levels = levels
   end
 
-  def self.perform(params = {})
-    new(params).perform
+  def self.perform(name, levels: 1)
+    new(name, levels).perform
   end
 
   def perform
-    @word = Word.find_or_create_by(name: name)
+    @word = Word.find_or_create_by(name: @name)
 
-    create_relationships
-  end
+    create_relationships! if @levels.positive?
 
-  def create_relationships
-    related_words.each do |word|
-      @word_related = Word.find_or_create_by(name: word)
-      if @word_related.id != @word.id
-        Relationship.create(
-          first_word: @word, 
-          second_word: @word_related
-        )
-      end
-    end
     @word
   end
 
   private
 
-  def name
-    @name
+  def create_relationships!
+    if @word.associations.length < 5
+      related_words.each do |word_name|
+        related_word = Word.find_or_create_by(name: word_name)
+        Relationship.find_or_create_by(
+          first_word: @word,
+          second_word: related_word
+        )
+      end
+    end
+
+    @word.associations.each do |word|
+      CreateWordService.perform(word.name, levels: @levels - 1)
+    end
   end
 
   def related_words
-    words = FetchWords.build_info(name)
-    words[:related_words]
+    RelatedWordsScrapper.new(@name).related_words
   end
 end

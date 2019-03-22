@@ -46,6 +46,7 @@ group :development, :test do
   gem "pry-rails"
   gem "rspec-rails"
   gem 'ffaker'
+  gem 'pry-nav'
 end
 
 group :development do

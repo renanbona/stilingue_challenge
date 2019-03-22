@@ -1,7 +1,1 @@
-<%= @word.name %>
-
-<h3>Related Words</h3>
-
-<% @word.associations.each do |word| %>
-  <p><%= word.name %></p>
-<% end %>
+<canvas width=1024 height=1024 data-nodes="<%= @graph_data.to_json %>"></canvas>

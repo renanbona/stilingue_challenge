@@ -1,17 +1,8 @@
 class WordsController < ApplicationController
-  before_action :set_word, only: :show
-
-  def index 
-    @words = if params[:term]
-      Word.where('name LIKE ?', "%#{params[:term]}%")
-      .order(:name)
-      .page params[:page]
-    else
-      @words = Word.order(:name).page params[:page]
-    end
-  end
 
   def show
+    @word = word
+    @graph_data = WordGraphExporter.perform(word)
   end
 
   def new
@@ -19,12 +10,12 @@ class WordsController < ApplicationController
   end
 
   def create
-    @word = CreateWordService.perform(word_params)
+    word = CreateWordService.perform(word_params[:name])
 
-    unless @word.errors.any?
-      redirect_to word_path(@word)
+    unless word.errors.any?
+      redirect_to word_path(word)
     else
-      render :new
+      redirect_to new_word_path
     end
   end
   
@@ -34,7 +25,7 @@ class WordsController < ApplicationController
     params.require(:word).permit(:name)
   end
 
-  def set_word
-    @word = Word.find(params[:id])
+  def word
+    Word.find_by(name: params[:id])
   end
 end
