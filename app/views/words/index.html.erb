@@ -3,7 +3,7 @@
     <h1>Digite a palavra que voce deseja</h1>
   </div>
   <%= form_with url: words_path, html: { class: "search-box" } do |f| %>
-    <%= f.text_field :name, class: "search-txt" %>
+    <%= f.text_field :name, class: "search-txt", required: true %>
     <button type="submit" class="search-btn">
       <i class="fas fa-search"></i>
     </button>

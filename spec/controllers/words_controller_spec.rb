@@ -25,4 +25,38 @@ RSpec.describe WordsController, type: :controller do
       expect(response).to be_successful
     end
   end
+
+  describe 'POST#create' do
+    context 'with valid attributes' do
+      let(:valid_attributes) do
+        {
+          name: 'amor'
+        }
+      end
+
+      it 'creates a new word' do
+        VCR.use_cassette('search_for_love') do
+          expect {
+            post :create, xhr: true, params: valid_attributes
+          }.to change(Word, :count)
+        end
+      end
+    end
+
+    context 'with invalid attributes' do
+      let(:invalid_attributes) do
+        {
+          name: ''
+        }
+      end
+
+      it 'does not create a new word' do
+        VCR.use_cassette('search_for_empty_word') do
+          expect {
+            post :create, xhr: true, params: invalid_attributes
+          }.not_to change(Word, :count)
+        end
+      end
+    end
+  end
 end

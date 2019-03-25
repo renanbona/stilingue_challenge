@@ -9,19 +9,17 @@ class WordsController < ApplicationController
   end
 
   def create
-    word = CreateWordService.perform(params[:name].downcase)
+    unless params[:name].empty?
+      word = CreateWordService.perform(params[:name]&.downcase)
 
-    if word.errors.empty?
-      @graph_data = WordGraphExporter.perform(word)
-      render(&:js)
+      if word.errors.empty?
+        @graph_data = WordGraphExporter.perform(word)
+        render(&:js)
+      end
     end
   end
 
   private
-
-  def word_params
-    params.require(:word).permit(:name)
-  end
 
   def word
     Word.find_by(name: params[:id])
