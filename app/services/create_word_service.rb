@@ -35,6 +35,6 @@ class CreateWordService
   end
 
   def related_words
-    RelatedWordsScrapper.new(@name).related_words
+    RelatedWordsScraper.new(@name).related_words
   end
 end

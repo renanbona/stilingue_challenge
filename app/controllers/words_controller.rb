@@ -1,29 +1,25 @@
+# frozen_string_literal: true
+
 class WordsController < ApplicationController
+  def index; end
 
   def show
-    @word = word
     @graph_data = WordGraphExporter.perform(word)
-  end
-
-  def new
-    @word = Word.new
+    render json: @graph_data
   end
 
   def create
-    word = CreateWordService.perform(word_params[:name])
+    unless params[:name].empty?
+      word = CreateWordService.perform(params[:name]&.downcase)
 
-    unless word.errors.any?
-      redirect_to word_path(word)
-    else
-      redirect_to new_word_path
+      if word.errors.empty?
+        @graph_data = WordGraphExporter.perform(word)
+        render(&:js)
+      end
     end
   end
-  
-  private
 
-  def word_params
-    params.require(:word).permit(:name)
-  end
+  private
 
   def word
     Word.find_by(name: params[:id])

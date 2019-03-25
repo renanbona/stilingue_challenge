@@ -1,33 +1,12 @@
 <div class="app">
-  <div class="title">
-    <h1>Words</h1>
+  <div class="title-app">
+    <h1>Digite a palavra que voce deseja</h1>
   </div>
-
-  <div class="search-form">
-    <%= form_tag(words_path, method: :get, class: 'search-form') do %>
-      <%= text_field_tag :term, params[:term] %>
-      <%= submit_tag 'Search', name: nil %>
-    <% end %>
-  </div>
-
-  <div class="words-table">
-    <table>
-      <thead>
-        <tr>
-          <th></th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr>
-          <% @words.each do |word| %>
-            <div class='word'>
-              <strong> <%= word.name %> </strong>
-            </div>
-          <% end %>
-        </tr>       
-      </tbody>
-    </table>
-    <%= paginate @words %>
-  </div>
+  <%= form_with url: words_path, html: { class: "search-box" } do |f| %>
+    <%= f.text_field :name, class: "search-txt", required: true %>
+    <button type="submit" class="search-btn">
+      <i class="fas fa-search"></i>
+    </button>
+  <% end %>
+  <canvas width="1200" height="600" data-nodes="<%= @graph_data.to_json %>"></canvas>
 </div>

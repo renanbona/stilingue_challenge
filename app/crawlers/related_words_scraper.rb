@@ -1,7 +1,7 @@
 require 'nokogiri'
 require 'open-uri'
 
-class RelatedWordsScrapper
+class RelatedWordsScraper
   def initialize(word)
     @word = word
   end
@@ -10,7 +10,7 @@ class RelatedWordsScrapper
     words = url
       .at_css('.tags')
       &.children
-      .map(&:text) || []
+      &.map(&:text) || []
     words - [@word]
   end
 
