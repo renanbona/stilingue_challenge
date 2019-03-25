@@ -12,8 +12,10 @@ window.addEventListener("load", function(){
   })
   
   function createGraph(data) {
-    var canvas = document.querySelector("canvas"),
-    context = canvas.getContext("2d"),
+    var canvas = document.querySelector('canvas');
+    canvas.height = 1200; 
+    canvas.width = 1200;
+    context = canvas.getContext("2d");
     width = canvas.width;
     height = canvas.height;
   

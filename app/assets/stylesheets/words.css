@@ -56,3 +56,7 @@ body {
   font-weight: bold;
 }
 
+.graph-conteiner {
+  height:600px;
+  overflow:auto;
+}
