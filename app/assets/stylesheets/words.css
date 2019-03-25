@@ -56,7 +56,21 @@ body {
   font-weight: bold;
 }
 
-.graph-conteiner {
-  height:600px;
-  overflow:auto;
+.graph-container {
+  height: 1200px;
+  width: 1200px;
+}
+
+
+.graph-container svg {
+  height: 100%;
+  width: 100%;
+}
+
+.input {
+  fill: red;
+}
+
+.node {
+  cursor: pointer;
 }
