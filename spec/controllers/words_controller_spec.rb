@@ -15,17 +15,6 @@ RSpec.describe WordsController, type: :controller do
     end
   end
 
-  describe 'GET#show' do
-    let(:word) { create(:word) }
-    before do
-      get :show, params: { id: word.name }
-    end
-
-    it 'returns a successful response' do
-      expect(response).to be_successful
-    end
-  end
-
   describe 'POST#create' do
     context 'with valid attributes' do
       let(:valid_attributes) do

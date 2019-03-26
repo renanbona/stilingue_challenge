@@ -1,19 +1,28 @@
 window.addEventListener("load", function(){
   let form = document.querySelector(".search-box");
   let wordInput = document.querySelector("#name");
+  let spinner = document.querySelector(".whirly-loader");
+  let buttonElement = document.querySelector(".search-btn");
 
-  form.addEventListener("ajax:success", function(event){   
-    word = wordInput.value.toLowerCase(); 
+  form.addEventListener("submit", function(event){
+    removeCurrentSvg();
+    disableButton();
+    showSpinner();
+
     Rails.ajax({
-      type: "GET", 
-      url: "/words/" + word,
-      success: function(response) { createGraph(response) }
+      type: "POST", 
+      url: "/words",
+      data: "name="+wordInput.value,
+      success: function(response) { 
+        hideSpinner()
+        enableButton()
+        createGraph(response)
+      }
     })
   })
   
   function createGraph(data) {
 
-    d3.select(".graph-container").selectAll("svg").remove()
     var svg = d3.select(".graph-container").append("svg")
   
     var simulation = d3.forceSimulation()
@@ -37,16 +46,17 @@ window.addEventListener("load", function(){
       .attr("class", "node")
       .on("click", function(ev) {
         wordInput.value = d3.select(this).text();
+        removeCurrentSvg();
+        disableButton();
+        showSpinner();
         Rails.ajax({
           type: "POST", 
           url: "/words",
           data: "name="+wordInput.value,
           success: function(response) { 
-            Rails.ajax({
-              type: "GET", 
-              url: "/words/" + wordInput.value,
-              success: function(response) { createGraph(response) }
-            }) 
+            hideSpinner()
+            enableButton()
+            createGraph(response) 
           }
         })
       })
@@ -79,6 +89,26 @@ window.addEventListener("load", function(){
   
     simulation.force("link")
       .links(data.links);
+  }
+
+  function removeCurrentSvg() {
+    d3.select(".graph-container").selectAll("svg").remove();
+  }
+
+  function showSpinner() {
+    spinner.style.display = "inline-block";
+  }
+
+  function hideSpinner() {
+    spinner.style.display = "none";
+  }
+
+  function enableButton() {
+    buttonElement.disabled = false;
+  }
+
+  function disableButton() {
+    buttonElement.disabled = true;
   }
 })
 
