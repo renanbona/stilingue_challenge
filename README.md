@@ -1,24 +1,60 @@
-# README
+##### Prerequisites
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+The setups steps expect following tools installed on the system.
 
-Things you may want to cover:
+- Ruby [2.5.3]
+- Rails [5.2.2]
+- Node
+- Postgresql
 
-* Ruby version
+##### 1. Check out the repository
 
-* System dependencies
+```bash
+git clone git@github.com:renanbona/stilingue_challenge.git
+```
 
-* Configuration
+##### 2. Configure database file
 
-* Database creation
+Copy the sample .database.yml.sample file and edit with your credentials.
 
-* Database initialization
+```bash
+cp config/database.yml.sample config/database.yml
+```
 
-* How to run the test suite
+##### 3. Install the gems
 
-* Services (job queues, cache servers, search engines, etc.)
+```bash
+bundle install
+```
 
-* Deployment instructions
+##### 4. Install all js dependencies by running
 
-* ...
+```bash
+yarn install
+```
+
+##### 5. Create and setup the database
+
+Run the following commands to create and setup the database.
+
+```ruby
+bundle exec rails db:setup
+```
+
+##### 6. Start the Rails server
+
+You can start the rails server using the command given below.
+
+```ruby
+bundle exec rails s
+```
+
+And now you can visit the site with the URL http://localhost:3000
+
+##### 7. Tests
+
+You can start run the tests with
+
+```ruby
+bundle exec rspec
+```
