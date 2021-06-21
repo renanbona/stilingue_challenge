@@ -21,7 +21,6 @@ class RelatedWordsScraper
   end
 
   def page
-    url = URI.encode("https://dicionariocriativo.com.br/#{@word}")
-    open(url)
+    url = URI.open("https://dicionariocriativo.com.br/#{@word}")
   end
 end
